@@ -1,17 +1,17 @@
 //node 환경에서 sqlite3를 조작하기 위해서는 외부 라이브러리의 도움이 필요하다
 //better-sqlite3는 동기적으로 작동한다는 특징이 있다.
-const db = require("better-sqlite3");
+const db = require("sqlite3").verbose();
 
 class MakeDatabase {
     constructor(){
-        this.database = new db("./test.db");
+        this.database = new db.Database("./test.db");
     }
     createData(){
         this.database.run("CREATE TABLE smart(id TEXT PRIMARY KEY, pwd TEXT, age INTEGER)");
     }
 
     insertData(id ,pwd ,age){
-        let insert = this.database.prepare("INSERT INTO smart(id, pwd, age) value (?,?,?)");
+        let insert = this.database.prepare("INSERT INTO smart(id, pwd, age) values ( ?, ?, ?)");
         insert.run(id,pwd,age)
         insert.finalize()
     }
