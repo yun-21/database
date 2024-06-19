@@ -1,22 +1,14 @@
-//node 환경에서 sqlite3를 조작하기 위해서는 외부 라이브러리의 도움이 필요하다
-//better-sqlite3는 동기적으로 작동한다는 특징이 있다.
-const db = require("sqlite3").verbose();
+const db = require('sqlite3').verbose(); //sqlite3 모듈 불러와서 변수에 담기
 
-class MakeDatabase {
-    constructor(){
-        this.database = new db.Database("./test.db");
+const sqlite = new db.Database(":memory:",(err)=>{
+    if(err){
+        return console.error(err.message);
     }
-    createData(){
-        this.database.run("CREATE TABLE smart(id TEXT PRIMARY KEY, pwd TEXT, age INTEGER)");
+    console.log('Connected to the in-memory SQlite database')
+});
+sqlite.close((err)=>{
+    if(err){
+        return console.error(err.message);
     }
-
-    insertData(){
-        let insert = this.database.prepare("INSERT INTO smart(id, pwd, age) VALUES ( '신지윤', '신123', 25)");
-        insert.run()
-        insert.finalize()
-    }
-    
-}
-const make = new MakeDatabase();
-make.createData()
-make.insertData()
+    console.log('Close the database connection')
+})
