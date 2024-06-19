@@ -16,9 +16,9 @@ class MakeDatabase {
     }
 
     // 데이터 삽입
-    insertData(){
+    insertData(id,pwd,age){
         let insert = this.database.prepare("INSERT INTO smart(id, pwd, age) VALUES (?, ?, ?)");
-        insert.run("신지윤", "신123", 25, (err) => {
+        insert.run(id, pwd, age, (err) => {
             if (err) {
                 return console.error(err.message);
             }
@@ -43,5 +43,5 @@ class MakeDatabase {
 // 데이터베이스 작업 수행
 const make = new MakeDatabase();
 make.createData();
-make.insertData();
+make.insertData("아이디","비밀번호22",22);
 make.selectData();
