@@ -27,6 +27,13 @@ class MakeDatabase {
         insert.finalize();
     }
 
+    // 데이터 업데이트
+    updateData(age,id){
+        const update = this.database.prepare("UPDATE smart SET age= ? WHERE id = ?")
+        update.run(age,id)
+        update.finalize();
+    }
+
     // 데이터 조회
     selectData(){
         this.database.all("SELECT * FROM smart", [], (err, rows) => {
@@ -44,4 +51,5 @@ class MakeDatabase {
 const make = new MakeDatabase();
 make.createData();
 make.insertData("아이디","비밀번호22",22);
+make.updateData(21,"아이디")
 make.selectData();
