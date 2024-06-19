@@ -9,5 +9,8 @@ if(isTrue){
     console.log("dd")
 }
 else{
-    const createData = db.prepare("CREATE TABLE zootopia(name TEXT PRIMARY KEY, ")
+    console.log("ss")
+    const createData = db.prepare("CREATE TABLE zootopia(name TEXT PRIMARY KEY, age INTEGER NOT NULL, address TEXT")
+    createData.run();
+    db.close()
 }
