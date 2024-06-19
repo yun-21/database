@@ -1,22 +1,47 @@
-//node 환경에서 sqlite3를 조작하기 위해서는 외부 라이브러리의 도움이 필요하다
-//better-sqlite3는 동기적으로 작동한다는 특징이 있다.
 const db = require("sqlite3").verbose();
 
 class MakeDatabase {
     constructor(){
         this.database = new db.Database("./test.db");
     }
+
+    // 테이블 생성
     createData(){
-        this.database.run("CREATE TABLE smart(id TEXT PRIMARY KEY, pwd TEXT, age INTEGER)");
+        this.database.run("CREATE TABLE IF NOT EXISTS smart(id TEXT PRIMARY KEY, pwd TEXT, age INTEGER)", (err) => {
+            if (err) {
+                return console.error(err.message);
+            }
+            console.log("Table created successfully");
+        });
     }
 
+    // 데이터 삽입
     insertData(){
-        let insert = this.database.prepare("INSERT INTO smart(id, pwd, age) VALUES ( '신지윤', '신123', 25)");
-        insert.run()
-        insert.finalize()
+        let insert = this.database.prepare("INSERT INTO smart(id, pwd, age) VALUES (?, ?, ?)");
+        insert.run("신지윤", "신123", 25, (err) => {
+            if (err) {
+                return console.error(err.message);
+            }
+            console.log("Data inserted successfully");
+        });
+        insert.finalize();
     }
-    
+
+    // 데이터 조회
+    selectData(){
+        this.database.all("SELECT * FROM smart", [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach((row) => {
+                console.log(row);
+            });
+        });
+    }
 }
+
+// 데이터베이스 작업 수행
 const make = new MakeDatabase();
-make.createData()
-make.insertData()
+make.createData();
+make.insertData();
+make.selectData();
