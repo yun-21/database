@@ -1,10 +1,7 @@
 const create = require("./module/createTable")
 const insert = require("./module/insertData")
+const update = require("./module/updateData")
 
-// const UpdateData = (obj, tableName) =>{
-//   const update = db.prepare(`UPDATE ${tableName} SET name = ? WHERE id = ?`)
-//   update.run("바이", obj.id)
-// }
 
 // const deleteData = (name, tableName) => {
 //   const delets = db.prepare(`DELETE FROM ${tableName} WHERE name = ?`)
@@ -17,7 +14,8 @@ let obj = {
   age : 103
 }
 
-// UpdateData(obj,"test")
+update("바바",obj,"mango","name","id")
 create("mango");
-insert(obj,"mango")
+// insert(obj,"mango")
+
 // deleteData("배열","test")
