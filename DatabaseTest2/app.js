@@ -17,12 +17,21 @@ else{
     console.log("테이블을 생성했습니다.");
 }
 
-const insertData = ()=>{
-    const insert = db.prepare("INSERT INTO zootopia (name, age, address) VALUES ('신지윤', 25, '태평동')");
-    insert.run()
+const insertData = (name,age,address)=>{
+    const insert = db.prepare("INSERT INTO zootopia (name, age, address) VALUES (?, ?, ?)");
+    insert.run(name,age,address)
 }
+
+const updateData = () =>{
+    const update = db.prepare("UPDATE zootopia SET age = '22' WHERE name = '신지윤'");
+    update.run()
+}
+
+
+
 if(isTrue){
-    insertData()
+    insertData("멍지윤","20","송촌동")
+    updateData()
 }
 db.close()
 
