@@ -21,7 +21,12 @@ const InsertData = (obj, tableName) => {
 
 const UpdateData = (obj, tableName) =>{
   const update = db.prepare(`UPDATE ${tableName} SET name = ? WHERE id = ?`)
-  update.run("안녕", obj.id)
+  update.run("바이", obj.id)
+}
+
+const deleteData = (name, tableName) => {
+  const delets = db.prepare(`DELETE FROM ${tableName} WHERE name = ?`)
+  delets.run(name)
 }
 
 let obj = {
@@ -31,6 +36,6 @@ let obj = {
 }
 
 // InsertData(obj,"test")
-UpdateData(obj.id,"test")
+UpdateData(obj,"test")
 CreateTable("test");
-
+deleteData("배열","test")
