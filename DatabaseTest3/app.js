@@ -15,16 +15,22 @@ const CreateTable = (tableName) =>{
 
 const InsertData = (obj, tableName) => {
   const insert = db.prepare(`INSERT INTO ${tableName} (id, name, age) VALUES(?,?,?)`)
-  insert.run(obj);
-  insert.finalize();
+  insert.run(obj.id, obj.name, obj.age);
+  // insert.finalize(); 
 }
+
+const UpdateData = (obj, tableName) =>{
+  const update = db.prepare(`UPDATE ${tableName} SET name = ? WHERE id = ?`)
+  update.run("안녕", obj.id)
+}
+
 let obj = {
-  id : 1,
-  name : "객체",
-  age : 100
+  id : 3,
+  name : "뭐지",
+  age : 103
 }
 
-InsertData(obj,"test")
-
+// InsertData(obj,"test")
+UpdateData(obj.id,"test")
 CreateTable("test");
 
